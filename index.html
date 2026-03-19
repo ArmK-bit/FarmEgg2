@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ระบบบันทึกน้ำหนักไข่ฟัก - ฟาร์มไทรทอง</title>
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --card:#ffffff;
+      --primary:#1f6feb;
+      --primary-dark:#1557b0;
+      --accent:#e8f0ff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --border:#dbe4f0;
+      --success:#0f9d58;
+      --danger:#d93025;
+      --shadow:0 10px 30px rgba(31,111,235,.12);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#eef5ff 0%, var(--bg) 100%);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:760px;
+      margin:0 auto;
+      padding:20px 14px 40px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,var(--primary),#4f8dff);
+      color:#fff;
+      border-radius:24px;
+      padding:20px 18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px;
+    }
+
+    .hero h1{
+      margin:0 0 6px;
+      font-size:28px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      margin:0;
+      opacity:.95;
+      font-size:14px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .field.full{
+      grid-column:1/-1;
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      margin-bottom:7px;
+      font-size:14px;
+    }
+
+    input, select{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid var(--border);
+      border-radius:12px;
+      font-size:16px;
+      background:#fff;
+      outline:none;
+      transition:.2s border, .2s box-shadow;
+    }
+
+    input:focus, select:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(31,111,235,.12);
+    }
+
+    .section-title{
+      margin:6px 0 14px;
+      font-size:18px;
+      font-weight:800;
+      color:var(--primary-dark);
+    }
+
+    .egg-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .summary{
+      margin-top:16px;
+      background:var(--accent);
+      border:1px solid #cfe0ff;
+      border-radius:16px;
+      padding:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .summary .label{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .summary .value{
+      font-size:32px;
+      font-weight:800;
+      color:var(--primary-dark);
+      line-height:1;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      margin-top:16px;
+      flex-wrap:wrap;
+    }
+
+    button{
+      border:none;
+      border-radius:14px;
+      padding:14px 18px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s transform, .2s opacity, .2s background;
+    }
+
+    .btn-primary{
+      flex:1;
+      background:var(--success);
+      color:#fff;
+      min-width:180px;
+    }
+
+    .btn-primary:hover{opacity:.95}
+    .btn-primary:active{transform:translateY(1px)}
+
+    .btn-secondary{
+      background:#eef2f7;
+      color:#334155;
+      min-width:120px;
+    }
+
+    .note{
+      margin-top:14px;
+      font-size:13px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .status{
+      margin-top:14px;
+      padding:12px 14px;
+      border-radius:12px;
+      display:none;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .status.success{
+      display:block;
+      background:#e9f8ef;
+      color:#0b8043;
+      border:1px solid #b7e1c1;
+    }
+
+    .status.error{
+      display:block;
+      background:#fdeeee;
+      color:var(--danger);
+      border:1px solid #f6c7c3;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:18px;
+    }
+
+    @media (max-width:640px){
+      .grid, .egg-grid{grid-template-columns:1fr}
+      .hero h1{font-size:23px}
+      .summary .value{font-size:28px}
+      .wrap{padding:12px 12px 28px}
+      .card{padding:14px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>ระบบบันทึกน้ำหนักไข่ฟัก</h1>
+      <p>ฟาร์มไทรทอง · ใช้งานบนมือถือได้ · เลือกโรงเรือน 1–12 · รวมจำนวนฟองอัตโนมัติ</p>
+    </div>
+
+    <div class="card">
+      <div class="section-title">ข้อมูลการบันทึก</div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="recordDate">วัน / เดือน / ปี</label>
+          <input type="date" id="recordDate" />
+        </div>
+
+        <div class="field">
+          <label for="house">โรงเรือน</label>
+          <select id="house">
+            <option value="">-- เลือกโรงเรือน --</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-title">ประเภทน้ำหนักไข่ / สภาพไข่</div>
+
+      <div class="egg-grid">
+        <div class="field">
+          <label for="e1">น้อยกว่า 64 กรัม</label>
+          <input type="number" id="e1" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field">
+          <label for="e2">65–72 กรัม</label>
+          <input type="number" id="e2" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field">
+          <label for="e3">73–76 กรัม</label>
+          <input type="number" id="e3" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field">
+          <label for="e4">77 กรัมขึ้นไป</label>
+          <input type="number" id="e4" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field">
+          <label for="e5">ไข่แฝด</label>
+          <input type="number" id="e5" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field">
+          <label for="e6">ไข่บุบร้าว</label>
+          <input type="number" id="e6" min="0" value="0" inputmode="numeric" />
+        </div>
+
+        <div class="field full">
+          <label for="e7">ไข่เสียหาย</label>
+          <input type="number" id="e7" min="0" value="0" inputmode="numeric" />
+        </div>
+      </div>
+
+      <div class="summary">
+        <div>
+          <div class="label">รวมจำนวนฟองไข่ทุกประเภท</div>
+          <div class="value"><span id="total">0</span> ฟอง</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" id="saveBtn">บันทึกข้อมูล</button>
+        <button class="btn-secondary" id="resetBtn" type="button">ล้างข้อมูล</button>
+      </div>
+
+      <div id="statusBox" class="status"></div>
+
+      <div class="note">
+        ก่อนใช้งานจริง ให้แก้ค่า <b>GAS_URL</b> ในโค้ดนี้เป็นลิงก์ Web App จาก Google Apps Script
+        เพื่อให้ปุ่มบันทึกส่งข้อมูลเข้า Google Sheet ได้
+      </div>
+    </div>
+
+    <div class="footer">พร้อมอัปโหลดเป็นไฟล์ index.html ไปที่ GitHub Pages</div>
+  </div>
+
+  <script>
+    const GAS_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+
+    const houseSelect = document.getElementById("house");
+    const numberIds = ["e1","e2","e3","e4","e5","e6","e7"];
+    const totalEl = document.getElementById("total");
+    const statusBox = document.getElementById("statusBox");
+    const saveBtn = document.getElementById("saveBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const recordDate = document.getElementById("recordDate");
+
+    for (let i = 1; i <= 12; i++) {
+      const option = document.createElement("option");
+      option.value = String(i);
+      option.textContent = "โรงเรือน " + i;
+      houseSelect.appendChild(option);
+    }
+
+    recordDate.value = new Date().toISOString().split("T")[0];
+
+    function getNum(id){
+      const value = parseInt(document.getElementById(id).value, 10);
+      return Number.isFinite(value) && value > 0 ? value : 0;
+    }
+
+    function updateTotal(){
+      const total = numberIds.reduce((sum, id) => sum + getNum(id), 0);
+      totalEl.textContent = total.toLocaleString("th-TH");
+      return total;
+    }
+
+    function showStatus(message, type){
+      statusBox.textContent = message;
+      statusBox.className = "status " + type;
+    }
+
+    function clearStatus(){
+      statusBox.textContent = "";
+      statusBox.className = "status";
+    }
+
+    numberIds.forEach(id => {
+      document.getElementById(id).addEventListener("input", updateTotal);
+    });
+
+    resetBtn.addEventListener("click", () => {
+      recordDate.value = new Date().toISOString().split("T")[0];
+      houseSelect.value = "";
+      numberIds.forEach(id => {
+        document.getElementById(id).value = 0;
+      });
+      updateTotal();
+      clearStatus();
+    });
+
+    saveBtn.addEventListener("click", async () => {
+      clearStatus();
+
+      if (!recordDate.value) {
+        showStatus("กรุณาเลือกวันที่ก่อนบันทึก", "error");
+        return;
+      }
+
+      if (!houseSelect.value) {
+        showStatus("กรุณาเลือกโรงเรือนก่อนบันทึก", "error");
+        return;
+      }
+
+      const payload = {
+        date: recordDate.value,
+        house: houseSelect.value,
+        e1: getNum("e1"),
+        e2: getNum("e2"),
+        e3: getNum("e3"),
+        e4: getNum("e4"),
+        e5: getNum("e5"),
+        e6: getNum("e6"),
+        e7: getNum("e7"),
+        total: updateTotal()
+      };
+
+      if (!GAS_URL || GAS_URL.includes("PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE")) {
+        showStatus("ยังไม่ได้ใส่ลิงก์ Google Apps Script ในโค้ด จึงบันทึกเข้า Google Sheet ยังไม่ได้", "error");
+        return;
+      }
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "กำลังบันทึก...";
+
+      try {
+        const response = await fetch(GAS_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+          throw new Error(text || "ไม่สามารถบันทึกข้อมูลได้");
+        }
+
+        showStatus("บันทึกข้อมูลสำเร็จ", "success");
+
+        numberIds.forEach(id => {
+          document.getElementById(id).value = 0;
+        });
+        updateTotal();
+      } catch (error) {
+        showStatus("บันทึกไม่สำเร็จ: " + error.message, "error");
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "บันทึกข้อมูล";
+      }
+    });
+
+    updateTotal();
+  </script>
+</body>
+</html>
