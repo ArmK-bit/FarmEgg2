@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>บันทึกไข่ฟัก</title>
+<style>
+body { font-family: sans-serif; background:#eef2f7; margin:0; }
+.container { max-width:600px; margin:auto; padding:15px; }
+.card { background:white; padding:15px; border-radius:10px; margin-bottom:10px; }
+input, select, button { width:100%; padding:10px; margin-top:5px; }
+button { background:green; color:white; border:none; font-size:16px; cursor:pointer; }
+.total { text-align:center; font-size:20px; color:blue; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <label>วันที่</label>
+    <input type="date" id="date">
+
+    <label>โรงเรือน</label>
+    <select id="house"></select>
+
+    <input type="number" placeholder="<64g" id="e1" oninput="calc()">
+    <input type="number" placeholder="65-72g" id="e2" oninput="calc()">
+    <input type="number" placeholder="73-76g" id="e3" oninput="calc()">
+    <input type="number" placeholder="77g+" id="e4" oninput="calc()">
+    <input type="number" placeholder="ไข่แฝด" id="e5" oninput="calc()">
+    <input type="number" placeholder="ไข่ร้าว" id="e6" oninput="calc()">
+    <input type="number" placeholder="ไข่เสีย" id="e7" oninput="calc()">
+
+    <div class="total">รวม: <span id="total">0</span> ฟอง</div>
+    <button onclick="save()">💾 บันทึก</button>
+  </div>
+</div>
+
+<script>
+for(let i=1;i<=12;i++){ house.innerHTML += `<option value="${i}">โรงเรือน ${i}</option>`; }
+
+function calc(){
+  let total=0;
+  ["e1","e2","e3","e4","e5","e6","e7"].forEach(id=>total+=parseInt(document.getElementById(id).value)||0);
+  document.getElementById("total").innerText = total;
+}
+
+function save(){
+  let data={
+    date: date.value,
+    house: house.value,
+    e1:e1.value||0, e2:e2.value||0, e3:e3.value||0, e4:e4.value||0,
+    e5:e5.value||0, e6:e6.value||0, e7:e7.value||0,
+    total: total.innerText
+  };
+
+  fetch("YOUR_POST_URL",{method:"POST",body:JSON.stringify(data)})
+  .then(()=>alert("บันทึกสำเร็จ"))
+  .catch(()=>alert("เกิดข้อผิดพลาด"));
+}
+</script>
+
+</body>
+</html>
