@@ -3,187 +3,118 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ระบบบันทึกน้ำหนักไข่ - ฟาร์มไทรทอง</title>
+  <title>ระบบบันทึกน้ำหนักไข่ฟัก - ฟาร์มไทรทอง</title>
   <style>
     :root{
-      --bg:#f4f7fb;
+      --bg:#f5f8ff;
       --card:#ffffff;
+      --text:#183153;
+      --muted:#667085;
       --primary:#1f6feb;
-      --primary-dark:#1557b0;
-      --accent:#e8f0ff;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --border:#dbe4f0;
-      --success:#16a34a;
-      --danger:#dc2626;
-      --shadow:0 10px 30px rgba(31,111,235,.12);
-      --radius:18px;
+      --primary-dark:#184fba;
+      --accent:#eef4ff;
+      --line:#dbe7ff;
+      --danger:#c92a2a;
+      --success:#0b8043;
+      --shadow:0 12px 32px rgba(32,76,145,.10);
+      --radius:20px;
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      background:linear-gradient(180deg,#eef5ff 0%, var(--bg) 100%);
+      font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Thai",sans-serif;
+      background:linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%);
       color:var(--text);
     }
-    .wrap{
-      max-width:760px;
-      margin:0 auto;
-      padding:20px 14px 40px;
-    }
+    .wrap{max-width:860px;margin:0 auto;padding:22px 16px 40px}
     .hero{
-      background:linear-gradient(135deg,var(--primary),#4f8dff);
+      background:linear-gradient(135deg,#1f6feb 0%,#6ca8ff 100%);
       color:#fff;
       border-radius:24px;
-      padding:20px 18px;
+      padding:22px 20px;
       box-shadow:var(--shadow);
-      margin-bottom:16px;
+      margin-bottom:18px;
     }
-    .hero h1{
-      margin:0 0 6px;
-      font-size:28px;
-      line-height:1.2;
-    }
-    .hero p{
-      margin:0;
-      opacity:.95;
-      font-size:14px;
-    }
+    .hero h1{margin:0 0 8px;font-size:28px;line-height:1.2}
+    .hero p{margin:0;opacity:.96}
     .card{
       background:var(--card);
-      border:1px solid var(--border);
+      border:1px solid #e7efff;
       border-radius:var(--radius);
       box-shadow:var(--shadow);
-      padding:18px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
-    }
-    .field{
-      margin-bottom:14px;
-    }
-    .field.full{
-      grid-column:1/-1;
-    }
-    label{
-      display:block;
-      font-weight:700;
-      margin-bottom:7px;
-      font-size:14px;
-    }
-    input, select{
-      width:100%;
-      padding:12px 14px;
-      border:1px solid var(--border);
-      border-radius:12px;
-      font-size:16px;
-      background:#fff;
-      outline:none;
-      transition:.2s border, .2s box-shadow;
-    }
-    input:focus, select:focus{
-      border-color:var(--primary);
-      box-shadow:0 0 0 4px rgba(31,111,235,.12);
+      padding:20px;
     }
     .section-title{
-      margin:6px 0 14px;
+      margin:4px 0 14px;
       font-size:18px;
       font-weight:800;
       color:var(--primary-dark);
     }
-    .egg-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+    .grid,.egg-grid{display:grid;gap:12px}
+    .grid{grid-template-columns:1fr 1fr}
+    .egg-grid{grid-template-columns:1fr 1fr}
+    .field{display:flex;flex-direction:column;gap:8px}
+    .field.full{grid-column:1 / -1}
+    label{font-size:14px;font-weight:700}
+    input,select{
+      width:100%;
+      border:1px solid #cfd9ee;
+      border-radius:14px;
+      padding:14px 14px;
+      font-size:16px;
+      outline:none;
+      transition:.18s ease;
+      background:#fff;
+      color:var(--text);
+    }
+    input:focus,select:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(31,111,235,.12);
     }
     .summary{
       margin-top:16px;
       background:var(--accent);
-      border:1px solid #cfe0ff;
+      border:1px solid var(--line);
       border-radius:16px;
       padding:16px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      flex-wrap:wrap;
     }
-    .summary .label{
-      font-size:14px;
-      color:var(--muted);
-      font-weight:700;
-    }
-    .summary .value{
-      font-size:32px;
-      font-weight:800;
-      color:var(--primary-dark);
-      line-height:1;
-    }
-    .actions{
-      display:flex;
-      gap:10px;
-      margin-top:16px;
-      flex-wrap:wrap;
-    }
+    .summary .label{font-size:14px;color:var(--muted);font-weight:700}
+    .summary .value{font-size:32px;font-weight:900;color:var(--primary-dark)}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
     button{
       border:none;
       border-radius:14px;
       padding:14px 18px;
       font-size:16px;
-      font-weight:700;
+      font-weight:800;
       cursor:pointer;
-      transition:.2s transform, .2s opacity, .2s background;
+      transition:.18s ease;
     }
-    .btn-primary{
-      flex:1;
-      background:var(--success);
-      color:#fff;
-      min-width:180px;
-    }
-    .btn-primary:hover{opacity:.95}
-    .btn-primary:active{transform:translateY(1px)}
-    .btn-secondary{
-      background:#eef2f7;
-      color:#334155;
-      min-width:120px;
-    }
-    .note{
-      margin-top:14px;
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.6;
-    }
+    button:disabled{opacity:.65;cursor:not-allowed}
+    .btn-primary{background:var(--primary);color:#fff}
+    .btn-primary:hover:not(:disabled){background:var(--primary-dark)}
+    .btn-secondary{background:#eef2f8;color:var(--text)}
+    .btn-secondary:hover:not(:disabled){background:#e2e8f3}
     .status{
-      margin-top:14px;
-      padding:12px 14px;
-      border-radius:12px;
       display:none;
-      font-size:14px;
+      margin-top:14px;
+      padding:13px 14px;
+      border-radius:14px;
       font-weight:700;
+      line-height:1.45;
     }
-    .status.success{
-      display:block;
-      background:#e9f8ef;
-      color:#0b8043;
-      border:1px solid #b7e1c1;
-    }
-    .status.error{
-      display:block;
-      background:#fdeeee;
-      color:var(--danger);
-      border:1px solid #f6c7c3;
-    }
-    .footer{
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:18px;
-    }
+    .status.success{display:block;background:#edf8f1;color:var(--success);border:1px solid #b7e1c1}
+    .status.error{display:block;background:#fdeeee;color:var(--danger);border:1px solid #f6c7c3}
+    .note{margin-top:14px;font-size:13px;color:var(--muted);line-height:1.5}
+    .footer{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}
+    iframe[name="submitFrame"]{display:none}
     @media (max-width:640px){
-      .grid, .egg-grid{grid-template-columns:1fr}
-      .hero h1{font-size:23px}
+      .grid,.egg-grid{grid-template-columns:1fr}
+      .hero h1{font-size:24px}
       .summary .value{font-size:28px}
       .wrap{padding:12px 12px 28px}
       .card{padding:14px}
@@ -194,7 +125,7 @@
   <div class="wrap">
     <div class="hero">
       <h1>ระบบบันทึกน้ำหนักไข่ฟัก</h1>
-      <p>ฟาร์มไทรทอง · รวมจำนวนฟองอัตโนมัติ</p>
+      <p>ฟาร์มไทรทอง · รวมจำนวนฟองอัตโนมัติ · บันทึกเข้า Google Sheets</p>
     </div>
 
     <div class="card">
@@ -214,43 +145,15 @@
         </div>
       </div>
 
-      <div class="section-title">ประเภทน้ำหนักไข่ / สภาพไข่</div>
-
+      <div class="section-title" style="margin-top:18px">ประเภทน้ำหนักไข่ / สภาพไข่</div>
       <div class="egg-grid">
-        <div class="field">
-          <label for="e1">น้อยกว่า 64 กรัม</label>
-          <input type="number" id="e1" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field">
-          <label for="e2">65–72 กรัม</label>
-          <input type="number" id="e2" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field">
-          <label for="e3">73–76 กรัม</label>
-          <input type="number" id="e3" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field">
-          <label for="e4">77 กรัมขึ้นไป</label>
-          <input type="number" id="e4" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field">
-          <label for="e5">ไข่แฝด</label>
-          <input type="number" id="e5" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field">
-          <label for="e6">ไข่บุบร้าว</label>
-          <input type="number" id="e6" min="0" value="0" inputmode="numeric" />
-        </div>
-
-        <div class="field full">
-          <label for="e7">ไข่เสียหาย</label>
-          <input type="number" id="e7" min="0" value="0" inputmode="numeric" />
-        </div>
+        <div class="field"><label for="e1">น้อยกว่า 64 กรัม</label><input type="number" id="e1" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field"><label for="e2">65–72 กรัม</label><input type="number" id="e2" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field"><label for="e3">73–76 กรัม</label><input type="number" id="e3" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field"><label for="e4">77 กรัมขึ้นไป</label><input type="number" id="e4" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field"><label for="e5">ไข่แฝด</label><input type="number" id="e5" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field"><label for="e6">ไข่บุบร้าว</label><input type="number" id="e6" min="0" inputmode="numeric" placeholder="0" /></div>
+        <div class="field full"><label for="e7">ไข่เสียหาย</label><input type="number" id="e7" min="0" inputmode="numeric" placeholder="0" /></div>
       </div>
 
       <div class="summary">
@@ -266,18 +169,28 @@
       </div>
 
       <div id="statusBox" class="status"></div>
-
-      <div class="note">
-        เชื่อม Google Apps Script แล้วเรียบร้อย ถ้ากดบันทึกแล้วไม่เข้า ให้ตรวจสิทธิ์ Deploy ว่าเปิดเป็น Anyone และใช้ลิงก์ /exec
-      </div>
+      <div class="note">เวอร์ชันนี้ตัดปัญหา fetch แบบ <code>no-cors</code> ออก แล้วส่งข้อมูลเข้า Google Apps Script ผ่านฟอร์มตรง ๆ เพื่อลดปัญหากดแล้วไม่เข้า</div>
     </div>
 
-    <div class="footer">พร้อมอัปโหลดเป็นไฟล์ index.html ไปที่ GitHub Pages</div>
+    <div class="footer">พร้อมอัปโหลดแทนไฟล์ index.html เดิมใน GitHub Pages</div>
   </div>
 
-  <script>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzlWla0vLjHT1fCAWn2HxRLBdsmBxQS_suh_ru632YjwlI3BvoX0FgjJGtPwGh7Ehwr/exec";
+  <form id="hiddenSubmitForm" action="https://script.google.com/macros/s/PUT_YOUR_DEPLOYMENT_ID_HERE/exec" method="POST" target="submitFrame" style="display:none">
+    <input type="hidden" name="date" />
+    <input type="hidden" name="house" />
+    <input type="hidden" name="e1" />
+    <input type="hidden" name="e2" />
+    <input type="hidden" name="e3" />
+    <input type="hidden" name="e4" />
+    <input type="hidden" name="e5" />
+    <input type="hidden" name="e6" />
+    <input type="hidden" name="e7" />
+    <input type="hidden" name="total" />
+    <input type="hidden" name="source" value="GitHub Pages - FarmEgg2" />
+  </form>
+  <iframe name="submitFrame" id="submitFrame"></iframe>
 
+  <script>
     const houseSelect = document.getElementById("house");
     const numberIds = ["e1","e2","e3","e4","e5","e6","e7"];
     const totalEl = document.getElementById("total");
@@ -285,6 +198,9 @@
     const saveBtn = document.getElementById("saveBtn");
     const resetBtn = document.getElementById("resetBtn");
     const recordDate = document.getElementById("recordDate");
+    const hiddenSubmitForm = document.getElementById("hiddenSubmitForm");
+    const submitFrame = document.getElementById("submitFrame");
+    let waitingSubmit = false;
 
     for (let i = 1; i <= 12; i++) {
       const option = document.createElement("option");
@@ -294,6 +210,11 @@
     }
 
     recordDate.value = new Date().toISOString().split("T")[0];
+
+    function normalizeNumberInput(el){
+      const value = String(el.value || "").replace(/[^0-9]/g, "");
+      el.value = value.replace(/^0+(?=\d)/, "");
+    }
 
     function getNum(id){
       const value = parseInt(document.getElementById(id).value, 10);
@@ -316,30 +237,55 @@
       statusBox.className = "status";
     }
 
+    function clearInputs(resetDate = false){
+      if (resetDate) recordDate.value = new Date().toISOString().split("T")[0];
+      houseSelect.value = "";
+      numberIds.forEach(id => {
+        document.getElementById(id).value = "";
+      });
+      updateTotal();
+    }
+
     numberIds.forEach(id => {
-      document.getElementById(id).addEventListener("input", updateTotal);
+      const input = document.getElementById(id);
+      input.addEventListener("input", () => {
+        normalizeNumberInput(input);
+        updateTotal();
+      });
+      input.addEventListener("focus", () => {
+        if (input.value === "0") input.value = "";
+      });
     });
 
     resetBtn.addEventListener("click", () => {
-      recordDate.value = new Date().toISOString().split("T")[0];
-      houseSelect.value = "";
-      numberIds.forEach(id => {
-        document.getElementById(id).value = 0;
-      });
-      updateTotal();
+      clearInputs(true);
       clearStatus();
     });
 
-    saveBtn.addEventListener("click", async () => {
+    submitFrame.addEventListener("load", () => {
+      if (!waitingSubmit) return;
+      waitingSubmit = false;
+      saveBtn.disabled = false;
+      saveBtn.textContent = "บันทึกข้อมูล";
+      showStatus("บันทึกข้อมูลสำเร็จ และส่งเข้า Google Sheets แล้ว", "success");
+      clearInputs(false);
+    });
+
+    saveBtn.addEventListener("click", () => {
       clearStatus();
 
       if (!recordDate.value) {
         showStatus("กรุณาเลือกวันที่ก่อนบันทึก", "error");
         return;
       }
-
       if (!houseSelect.value) {
         showStatus("กรุณาเลือกโรงเรือนก่อนบันทึก", "error");
+        return;
+      }
+
+      const actionUrl = hiddenSubmitForm.getAttribute("action");
+      if (!actionUrl || actionUrl.includes("PUT_YOUR_DEPLOYMENT_ID_HERE")) {
+        showStatus("ยังไม่ได้ใส่ลิงก์ Google Apps Script /exec ในไฟล์ index.html", "error");
         return;
       }
 
@@ -356,30 +302,22 @@
         total: updateTotal()
       };
 
+      Object.entries(payload).forEach(([key, value]) => {
+        const input = hiddenSubmitForm.querySelector(`[name="${key}"]`);
+        if (input) input.value = String(value);
+      });
+
+      waitingSubmit = true;
       saveBtn.disabled = true;
       saveBtn.textContent = "กำลังบันทึก...";
 
       try {
-        await fetch(GAS_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        showStatus("บันทึกข้อมูลสำเร็จ", "success");
-
-        numberIds.forEach(id => {
-          document.getElementById(id).value = 0;
-        });
-        updateTotal();
+        hiddenSubmitForm.submit();
       } catch (error) {
-        showStatus("บันทึกไม่สำเร็จ: " + error.message, "error");
-      } finally {
+        waitingSubmit = false;
         saveBtn.disabled = false;
         saveBtn.textContent = "บันทึกข้อมูล";
+        showStatus("บันทึกไม่สำเร็จ: " + error.message, "error");
       }
     });
 
